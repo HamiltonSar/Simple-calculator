@@ -1,35 +1,37 @@
-class CalculatorOperations {
-    constructor(num1 ){
-        this.num1 = num1;
-    }
-    Sum (num1) {
-        this.num1 + this.num2
-    }
-    Abstract(num1) {
-        this.num1 - this.num2
-    }
-    Divide (num1) {
-        this.num1 / this.num2
-    }
-    Multiply (num1) {
-        this.num1 * this.num2
-    }
-}
-
-
-
 let value;
 let windowValue = document.getElementById("windowValue");
 const buttonsElementsContainer = document.getElementById("buttonsElementsContainer");
+const match = ["AC","DEL","="];
+let result;
 
-buttonsElementsContainer.addEventListener("click" , (e)=> {
-    let value = e.target.value;
-    const match = ["AC","DEL","="]
-    if(match.includes(value)){
-        value = "";
-        windowValue.innerHTML += value;
-    }else {
-        windowValue.innerHTML += value;
+
+// Eval is not recommended , but this project is small and eval can be used without any problems;
+
+
+const ButtonsAction = (e) => {
+    value = e.target.value;
+    (match.includes(value) || value === undefined) ? value = "" : windowValue.innerHTML += value.toString();
+    try {
+        if(e.target.value === "=") {
+            result = eval(windowValue.innerHTML);
+            windowValue.innerHTML = result;
+        }
+        
+    } catch (error) {
+        windowValue.innerHTML = "Syntax Error";
     }
-    const nums = new CalculatorOperations(value);
-});
+    
+    
+    if(e.target.value === "AC") windowValue.innerHTML = "";
+    if(e.target.value === "DEL") {
+        let deletedString = windowValue.innerHTML.substring(0 , windowValue.innerHTML.length - 1);
+        windowValue.innerHTML = deletedString;
+    }
+
+}
+
+const data = eval("2 * (2+2)")
+console.log(data)
+
+
+buttonsElementsContainer.addEventListener("click" , ButtonsAction);
