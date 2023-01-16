@@ -22,16 +22,13 @@ const ButtonsAction = (e) => {
     }
     
     
-    if(e.target.value === "AC") windowValue.innerHTML = "";
+    if(e.target.value === "AC")  windowValue.innerHTML = "";
     if(e.target.value === "DEL") {
         let deletedString = windowValue.innerHTML.substring(0 , windowValue.innerHTML.length - 1);
         windowValue.innerHTML = deletedString;
     }
 
 }
-
-const data = eval("2 * (2+2)")
-console.log(data)
 
 
 buttonsElementsContainer.addEventListener("click" , ButtonsAction);
